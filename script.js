@@ -28,20 +28,20 @@
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
     // Contact form
-    document.getElementById('contactForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const project = document.getElementById('project').value;
-      const message = document.getElementById('message').value.trim();
+    // document.getElementById('contactForm').addEventListener('submit', function (e) {
+    //   e.preventDefault();
+    //   const name = document.getElementById('name').value.trim();
+    //   const email = document.getElementById('email').value.trim();
+    //   const project = document.getElementById('project').value;
+    //   const message = document.getElementById('message').value.trim();
 
-      if (name && email && project && message) {
-        alert('Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.');
-        this.reset();
-      } else {
-        alert('Veuillez remplir tous les champs.');
-      }
-    });
+    //   if (name && email && project && message) {
+    //     alert('Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.');
+    //     this.reset();
+    //   } else {
+    //     alert('Veuillez remplir tous les champs.');
+    //   }
+    // });
 
     // Particles
     function createParticle() {
@@ -114,3 +114,35 @@
         card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
       });
     });
+
+    // Initialisation EmailJS
+    (function() {
+        emailjs.init("1kUBZXUypYXqCRX-5"); // Public Key EmailJS
+    })();
+
+    // Gestion de l'envoi du formulaire avec validation
+    document.getElementById("contactForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const project = document.getElementById('project').value;
+        const message = document.getElementById('message').value.trim();
+
+        if (!name || !email || !project || !message) {
+            alert('Veuillez remplir tous les champs.');
+            return;
+        }
+
+        emailjs.sendForm(
+            "service_7e9d5mo",   // Service ID
+            "template_anr9asi",  // Template ID
+            this
+        ).then(function() {
+            alert("Message envoyé avec succès !");
+            document.getElementById("contactForm").reset();
+        }, function(error) {
+            alert("Erreur lors de l'envoi : " + JSON.stringify(error));
+        });
+    });
+

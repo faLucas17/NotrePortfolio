@@ -68,7 +68,7 @@
             </ul>
           </div>
 
-          <div class="service-card fade-in">
+          <!-- <div class="service-card fade-in">
             <div class="service-icon">🚀</div>
             <h3>Solutions Startup</h3>
             <p>Accompagnement complet pour les startups, de l'idée au produit fini.</p>
@@ -79,9 +79,9 @@
               <li>Intégration cloud</li>
               <li>Support technique</li>
             </ul>
-          </div>
+          </div> -->
 
-          <div class="service-card fade-in">
+          <!-- <div class="service-card fade-in">
             <div class="service-icon">⚡</div>
             <h3>Automatisation</h3>
             <p>Automatisez vos processus métier pour gagner en efficacité et en productivité.</p>
@@ -92,7 +92,7 @@
               <li>Scraping de données</li>
               <li>Déploiement continu</li>
             </ul>
-          </div>
+          </div> -->
         </div>
       </div>
     </section>
@@ -102,31 +102,34 @@
         <h2 class="fade-in">Notre Équipe</h2>
         <div class="team-grid">
           <div class="team-member fade-in">
-            <div class="member-avatar">👨‍💻</div>
+            <div class="member-avatar">👨‍💻 📊</div>
             <h3>Mouhamadou Mansour BA</h3>
-            <div class="role">Développeur Full-Stack</div>
-            <p>Passionné par les technologies web modernes, M.Mansour crée des applications performantes et esthétiques. Expert en Laravel, Node.js et architectures cloud.</p>
+            <div class="role">Développeur Full-Stack | Data Analyst</div>
+            <!-- <p>Passionné par les technologies web modernes, M.Mansour crée des applications performantes et esthétiques. Expert en Laravel, Node.js et architectures cloud.</p> -->
             <div class="member-skills">
-              <span class="skill-tag">Django</span>
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">SQL</span>
+              <span class="skill-tag">Power BI</span>
+              <span class="skill-tag">PHP</span>
+              <span class="skill-tag">Laravel</span>
+              <!-- <span class="skill-tag">Django</span>
               <span class="skill-tag">Laravel</span>
               <span class="skill-tag">Node.js</span>
               <span class="skill-tag">MongoDB</span>
-              <span class="skill-tag">AWS</span>
-              <span class="skill-tag">TypeScript</span>
+              <span class="skill-tag">TypeScript</span> -->
             </div>
           </div>
 
           <div class="team-member fade-in">
             <div class="member-avatar">📊</div>
-            <h3>FATOU FALL</h3>
+            <h3>Fatou FALL</h3>
             <div class="role">Data Analyst</div>
-            <p>Experte en analyse de données et visualisation, Fatou transforme les données complexes en insights exploitables pour optimiser les performances business.</p>
+            <!-- <p>Experte en analyse de données et visualisation, Fatou transforme les données complexes en insights exploitables pour optimiser les performances business.</p> -->
             <div class="member-skills">
               <span class="skill-tag">Python</span>
               <span class="skill-tag">SQL</span>
-              <span class="skill-tag">Tableau</span>
               <span class="skill-tag">Power BI</span>
-              <span class="skill-tag">Machine Learning</span>
+              <!-- <span class="skill-tag">Machine Learning</span> -->
             </div>
           </div>
         </div>
@@ -194,7 +197,7 @@
             </div>
           </div>
 
-          <div class="project-card fade-in">
+          <!-- <div class="project-card fade-in">
             <div class="project-image">🤖</div>
             <div class="project-content">
               <h3>AI Chatbot System</h3>
@@ -211,9 +214,9 @@
                 <a href="#" class="project-link">Demo live</a>
               </div>
             </div>
-          </div>
+          </div> -->
 
-          <div class="project-card fade-in">
+          <!-- <div class="project-card fade-in">
             <div class="project-image">⚡</div>
             <div class="project-content">
               <h3>Automation Suite</h3>
@@ -230,7 +233,7 @@
                 <a href="#" class="project-link">Demo live</a>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="project-card fade-in">
             <div class="project-image">🎨</div>
@@ -254,7 +257,7 @@
       </div>
     </section>
 
-    <section id="contact" class="contact">
+    <!-- <section id="contact" class="contact">
       <div class="container">
         <h2 class="fade-in">Contactez-nous</h2>
         <p class="fade-in" style="font-size: 1.2rem; margin-bottom: 3rem; color: #ccc;">
@@ -276,8 +279,6 @@
                 <option value="">Sélectionnez un type de projet</option>
                 <option value="web">Développement Web</option>
                 <option value="data">Analyse de Données</option>
-                <option value="startup">Solution Startup</option>
-                <option value="automation">Automatisation</option>
                 <option value="other">Autre</option>
               </select>
             </div>
@@ -289,14 +290,53 @@
           </form>
         </div>
       </div>
-    </section>
+    </section> -->
+    <!-- SECTION CONTACT -->
+<section id="contact" class="contact">
+  <div class="container">
+    <h2 class="fade-in">Contactez-nous</h2>
+    <p class="fade-in" style="font-size: 1.2rem; margin-bottom: 3rem; color: #ccc;">
+      Prêt à concrétiser votre projet ? Discutons de vos idées et trouvons ensemble la solution parfaite.
+    </p>
+
+    <div class="contact-form fade-in">
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="name">Nom complet</label>
+          <input type="text" id="name" name="name" placeholder="Votre nom complet" autocomplete="name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="votre@email.com" autocomplete="email" required />
+        </div>
+        <div class="form-group">
+              <label for="project">Type de projet</label>
+              <select id="project" name="project" required style="width: 100%; padding: 1rem; border: 1px solid rgba(100, 255, 218, 0.3); border-radius: 10px; background: rgba(26, 26, 46, 0.8); color: white;">
+                <option value="">Sélectionnez un type de projet</option>
+                <option value="web">Développement Web</option>
+                <option value="data">Analyse de Données</option>
+                <option value="other">Autre</option>
+              </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="Décrivez votre projet et vos besoins..." required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Envoyer le message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+
   </main>
 
   <footer>
     <div class="container">
       <div class="social-links">
-        <a href="mailto:contact@dataflowstudio.com" class="social-link" aria-label="Email">📧</a>
-        <a href="tel:+33123456789" class="social-link" aria-label="Téléphone">📱</a>
+        <a href="mailto:dataflowstudio25@gmail.com" class="social-link" aria-label="Email">📧</a>
+        <a href="tel:+221778228460" class="social-link" aria-label="Téléphone">📱</a>
         <a href="https://linkedin.com/company/dataflowstudio" class="social-link" aria-label="LinkedIn">💼</a>
         <a href="https://github.com/dataflowstudio" class="social-link" aria-label="GitHub">🐙</a>
       </div>
@@ -305,6 +345,8 @@
     </div>
   </footer>
 
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
   <script src="script.js" defer></script>
 </body>
 </html>
