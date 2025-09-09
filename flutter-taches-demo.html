@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionnaire Des Tâches - Démo Mobile</title>
+    <link rel="stylesheet" href="flutter-taches-demo.css">
+    
+</head>
+<body>
+    <div class="phone-container">
+        <div class="app-bar">
+            <h1>
+                <span class="title-gestionnaire">Gestionnaire</span>
+                <span class="title-des"> Des </span>
+                <span class="title-taches">Tâches</span>
+            </h1>
+        </div>
+
+        <div class="container">
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+            </div>
+
+            <div id="tasks-container"></div>
+
+            <div id="empty-state" class="empty-state" style="display: none;">
+                <div class="empty-icon">📱</div>
+                <h3>Aucune tâche pour le moment</h3>
+                <p>Cliquez sur le bouton + pour ajouter votre première tâche</p>
+            </div>
+        </div>
+
+        <button class="fab" onclick="openModal()">+</button>
+    </div>
+
+    <!-- Modal pour ajouter/éditer une tâche -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <form id="task-form">
+                <div class="form-group">
+                    <input type="text" id="title" class="form-input" placeholder="Titre" required>
+                </div>
+
+                <div class="form-group">
+                    <textarea id="description" class="form-input form-textarea" placeholder="Description" required></textarea>
+                </div>
+
+                <div class="date-row">
+                    <button type="button" class="date-btn" id="start-date-btn">
+                        Date de début:<br><span id="start-date-display"></span>
+                    </button>
+                    <button type="button" class="date-btn" id="end-date-btn">
+                        Date de fin:<br><span id="end-date-display"></span>
+                    </button>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-btn">Ajouter Tâche</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script>
+        // Base de données simulée
+        let tasks = [];
+        let editingTaskId = null;
+        let startDate = new Date();
+        let endDate = new Date(Date.now() + 24 * 60 * 60 * 1000); // Demain
+
+        // Fonction pour formater la date
+        function formatDate(date) {
+            return date.toLocaleDateString('fr-FR');
+        }
+
+        // Fonction pour calculer le statut
+        function getStatus(startDate, endDate) {
+            const now = new Date();
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+
+            if (now < start) {
+                return 'Pas Débuté';
+            } else if (now > end) {
+                return 'Terminé';
+            } else {
+                return 'En cours';
+            }
+        }
+
+        // Fonction pour obtenir la classe CSS du statut
+        function getStatusClass(status) {
+            switch (status) {
+                case 'Pas Débuté': return 'status-pas-debute';
+                case 'En cours': return 'status-en-cours';
+                case 'Terminé': return 'status-termine';
+                default: return '';
+            }
+        }
+
+        // Simuler le chargement initial
+        function loadTasks() {
+            document.getElementById('loading').style.display = 'flex';
+            
+            // Ajouter quelques tâches d'exemple
+            setTimeout(() => {
+                tasks = [
+                    {
+                        id: 1,
+                        title: "Développer l'interface Flutter",
+                        description: "Créer une interface moderne et intuitive avec Material Design pour une expérience utilisateur optimale",
+                        startDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // Il y a 2 jours
+                        endDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // Dans 3 jours
+                    },
+                    {
+                        id: 2,
+                        title: "Intégrer SQLite Database",
+                        description: "Configurer la base de données SQLite pour la persistance locale des tâches avec toutes les opérations CRUD",
+                        startDate: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // Demain
+                        endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Dans 7 jours
+                    },
+                    {
+                        id: 3,
+                        title: "Tests et Optimisation",
+                        description: "Effectuer des tests complets, corriger les bugs et optimiser les performances de l'application",
+                        startDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000), // Il y a 5 jours
+                        endDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // Hier
+                    }
+                ];
+
+                // Calculer le statut pour chaque tâche
+                tasks.forEach(task => {
+                    task.status = getStatus(task.startDate, task.endDate);
+                });
+
+                renderTasks();
+                document.getElementById('loading').style.display = 'none';
+            }, 1500);
+        }
+
+        // Fonction pour afficher les tâches
+        function renderTasks() {
+            const container = document.getElementById('tasks-container');
+            const emptyState = document.getElementById('empty-state');
+
+            if (tasks.length === 0) {
+                container.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            
+            container.innerHTML = tasks.map(task => `
+                <div class="task-card">
+                    <div class="task-header">
+                        <div class="task-title">${task.title}</div>
+                        <div class="task-actions">
+                            <button class="action-btn edit-icon" onclick="editTask(${task.id})" title="Modifier"></button>
+                            <button class="action-btn delete-icon" onclick="deleteTask(${task.id})" title="Supprimer"></button>
+                        </div>
+                    </div>
+                    <div class="task-description">${task.description}</div>
+                    <div class="task-dates">
+                        <div class="task-date">Date de début: ${formatDate(task.startDate)}</div>
+                        <div class="date-separator"></div>
+                        <div class="task-date">Date de fin: ${formatDate(task.endDate)}</div>
+                        <div class="task-status ${getStatusClass(task.status)}">Statut: ${task.status}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Ouvrir le modal
+        function openModal(taskId = null) {
+            const modal = document.getElementById('modal');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            editingTaskId = taskId;
+
+            if (taskId) {
+                const task = tasks.find(t => t.id === taskId);
+                submitBtn.textContent = 'Modifier Tâche';
+                document.getElementById('title').value = task.title;
+                document.getElementById('description').value = task.description;
+                startDate = new Date(task.startDate);
+                endDate = new Date(task.endDate);
+            } else {
+                submitBtn.textContent = 'Ajouter Tâche';
+                document.getElementById('title').value = '';
+                document.getElementById('description').value = '';
+                startDate = new Date();
+                endDate = new Date(Date.now() + 24 * 60 * 60 * 1000);
+            }
+
+            updateDateDisplays();
+            modal.classList.add('show');
+        }
+
+        // Fermer le modal
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('show');
+            editingTaskId = null;
+        }
+
+        // Mettre à jour l'affichage des dates
+        function updateDateDisplays() {
+            document.getElementById('start-date-display').textContent = formatDate(startDate);
+            document.getElementById('end-date-display').textContent = formatDate(endDate);
+        }
+
+        // Modifier une tâche
+        function editTask(id) {
+            openModal(id);
+        }
+
+        // Supprimer une tâche
+        function deleteTask(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?')) {
+                tasks = tasks.filter(task => task.id !== id);
+                renderTasks();
+                showNotification('Tâche supprimée avec succès', 'error');
+            }
+        }
+
+        // Afficher une notification
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Gestionnaire du formulaire
+        document.getElementById('task-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const title = document.getElementById('title').value.trim();
+            const description = document.getElementById('description').value.trim();
+
+            if (!title || !description) {
+                showNotification('Les champs ne peuvent pas être vides', 'error');
+                return;
+            }
+
+            const status = getStatus(startDate, endDate);
+
+            if (editingTaskId) {
+                // Modifier la tâche existante
+                const taskIndex = tasks.findIndex(t => t.id === editingTaskId);
+                tasks[taskIndex] = {
+                    ...tasks[taskIndex],
+                    title,
+                    description,
+                    startDate: new Date(startDate),
+                    endDate: new Date(endDate),
+                    status
+                };
+                showNotification('Tâche modifiée avec succès', 'warning');
+            } else {
+                // Ajouter une nouvelle tâche
+                const newTask = {
+                    id: Date.now(), // ID simple pour la démo
+                    title,
+                    description,
+                    startDate: new Date(startDate),
+                    endDate: new Date(endDate),
+                    status
+                };
+                tasks.push(newTask);
+                showNotification('Tâche ajoutée avec succès', 'success');
+            }
+
+            renderTasks();
+            closeModal();
+        });
+
+        // Gestionnaires des boutons de date
+        document.getElementById('start-date-btn').addEventListener('click', function() {
+            const input = document.createElement('input');
+            input.type = 'date';
+            input.value = startDate.toISOString().split('T')[0];
+            input.addEventListener('change', function() {
+                startDate = new Date(this.value);
+                updateDateDisplays();
+            });
+            input.click();
+        });
+
+        document.getElementById('end-date-btn').addEventListener('click', function() {
+            const input = document.createElement('input');
+            input.type = 'date';
+            input.value = endDate.toISOString().split('T')[0];
+            input.addEventListener('change', function() {
+                endDate = new Date(this.value);
+                updateDateDisplays();
+            });
+            input.click();
+        });
+
+        // Fermer le modal en cliquant à l'extérieur
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Initialiser l'application
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTasks();
+        });
+    </script>
+</body>
+</html>

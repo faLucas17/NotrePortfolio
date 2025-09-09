@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Démo Live - Plateforme Gestion Stock PME</title>
+    <link rel="stylesheet" href="stock-demo.css">
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+
+    <div class="container">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>🏢 Plateforme Gestion Stock PME</h1>
+                <p>API REST complète avec authentification JWT et gestion des rôles multi-niveaux</p>
+                <div class="status-badges">
+                    <span class="status-badge">✅ Backend Opérationnel</span>
+                    <span class="status-badge">🔐 JWT Sécurisé</span>
+                    <span class="status-badge">👥 Multi-Rôles</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard">
+            <div class="sidebar">
+                <div class="user-profile">
+                    <div class="avatar">👤</div>
+                    <h3>Utilisateur Démo</h3>
+                    <span class="role-badge">ADMINISTRATEUR</span>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#dashboard" class="nav-link active">
+                            <span class="nav-icon">📊</span>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#products" class="nav-link">
+                            <span class="nav-icon">📦</span>
+                            Produits
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#categories" class="nav-link">
+                            <span class="nav-icon">🏷️</span>
+                            Catégories
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#customers" class="nav-link">
+                            <span class="nav-icon">👥</span>
+                            Clients
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#orders" class="nav-link">
+                            <span class="nav-icon">🛒</span>
+                            Commandes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#users" class="nav-link">
+                            <span class="nav-icon">⚙️</span>
+                            Utilisateurs
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="main-content">
+                <div class="content-header">
+                    <h2 class="content-title">📊 Dashboard Principal</h2>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-number">1,247</div>
+                        <div class="stat-label">Produits en Stock</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-number">389</div>
+                        <div class="stat-label">Clients Actifs</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🛒</div>
+                        <div class="stat-number">156</div>
+                        <div class="stat-label">Commandes ce mois</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⚠️</div>
+                        <div class="stat-number">23</div>
+                        <div class="stat-label">Alertes Stock</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modules-grid">
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-icon">📦</div>
+                    <div class="module-title">Gestion Produits</div>
+                </div>
+                <div class="module-description">
+                    Système complet de gestion des produits avec contrôle de stock et alertes automatiques.
+                </div>
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <span class="feature-check">✅</span>
+                        CRUD complet des produits
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-check">✅</span>
+                        Gestion automatique des stocks
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-check">✅</span>
+                        Alertes de stock faible
+                    </li>
+                </ul>
+                <div class="api-endpoints">
+                    <div class="endpoint">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-url">/api/products</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method-badge post">POST</span>
+                        <span class="endpoint-url">/api/products</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method-badge put">PUT</span>
+                        <span class="endpoint-url">/api/products/{id}</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method-badge delete">DEL</span>
+                        <span class="endpoint-url">/api/products/{id}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-icon">🏷️</div>
+                    <div class="module-title">Gestion Catégories</div>
+                </div>
+                <div class="module-description">
+                    Organisation et classification des produits par catégories pour une meilleure gestion.
+                </div>
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <span class="feature-check">✅</span>
+                        Classification hiérarchique
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-check">✅</span>
+                        Recherche par catégorie
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-check">✅</span>
+                        Statistiques par catégorie
+                    </li>
+                </ul>
+                <div class="api-endpoints">
+                    <div class="endpoint">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-url">/api/categories</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method-badge post">POST</span>
+                        <span class="endpoint-url">/api/categories</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method-badge put">PUT</span>
+                        <span class="endpoint-url">/api/categories/{id}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-icon">👥</div>
+                    <div class="module-title">Gestion Clients</div>
+                </div>
+                <div class="module-description">
+                    Base de données clients complète avec recherche avancée et historique des commandes.
+                </div>
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <span class="feature-check">✅</span>
+                        Profil client détaillé
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-check">✅</span>
+                        Recherche multi-critères
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-check">✅</span>
+                        Historique des achats
+                    </li>
+                </ul>
+                <div class="api-endpoints">
+                    <div class="endpoint">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-url">/api/customers</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method-badge post">POST</span>
+                        <span class="endpoint-url">/api/customers</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-url">/api/customers/search</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-icon">🛒</div>
+                    <div class="module-title">Gestion Commandes</div>
+                </div>
+                <div class="module-description">
+                    Suivi complet du processus de commande avec gestion des statuts et historique.
+                </div>
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <span class="feature-check">✅</span>
+                        Suivi des statuts
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-check">✅</span>
+                        Gestion des paiements
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-check">✅</span>
+                        Historique complet
+                    </li>
+                </ul>
